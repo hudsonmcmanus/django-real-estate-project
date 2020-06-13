@@ -26,7 +26,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <label class="sr-only">Province</label>
-                                <select name="state" class="form-control">
+                                <select name="province" class="form-control">
                                     <option selected="true" disabled="disabled">Provinces (All)</option>
                                     {% for key,value in provinces.items %}
                                         <option value="{{ key }}">{{ value }}</option>
@@ -116,8 +116,6 @@
                     <p>No Listings available</p>
                 </div>
             {% endif %}
-            <!-- Listing 1 -->
-
 
         </div>
     </div>
