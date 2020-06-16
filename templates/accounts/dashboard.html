@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-12">
-                    <h1 class="display-4">User Dashboard</h1>
+                    <h1 class="display-4">{{user.username}}'s' Dashboard</h1>
                     <p class="lead">Manage your BT Real Estate account</p>
                 </div>
             </div>
@@ -36,40 +36,39 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Welcome {{user.username}}</h2>
-                    <p>Here are the property listings that you have inquired about</p>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Property</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>22</td>
-                                <td>45 Drivewood Circle</td>
-                                <td>
-                                    <a class="btn btn-light" href="#">View Listing</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>43</td>
-                                <td>22 Westbrook rd</td>
-                                <td>
-                                    <a class="btn btn-light" href="#">View Listing</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>31</td>
-                                <td>12 Samson Ave</td>
-                                <td>
-                                    <a class="btn btn-light" href="#">View Listing</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h2>Welcome {{user.first_name}}</h2>
+                    {% if contacts %}
+                        <p>Here are the property listings that you have inquired about</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Property</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contact in contacts %}
+                                <form id='close' action="{% url 'dashboard' %}" method="POST" style="display: none;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="listing_id" value="{{ contact.listing_id }}">
+                                    <tr>
+                                        <td>{{contact.id}}</td>
+                                        <td>{{contact.listing}}</td>
+                                        <td>
+                                         <a class="btn btn-light" href="{% url 'listing' contact.listing_id%}">View Listing</a>  
+                                        <button class="close" form='close' type='submit'><span aria-hidden="true">&times;</span></button>
+                                </form>
+                                                
+                                            
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>You have not made any inquires</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

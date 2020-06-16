@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
-
+from contacts.models import Contact
+from django.core.mail import send_mail
 
 def login(request):
     if request.method == 'POST':
@@ -63,4 +64,14 @@ def logout(request):
 
 
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method == "POST":
+        listing_id = request.POST['listing_id']
+        contact = Contact.objects.filter(user_id=request.user.id, listing_id=listing_id).delete()
+        messages.success(request, 'Inquiry has been deleted. Please contact the realtor as soon as possible')
+        return redirect('dashboard')
+    user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+
+    context = {
+        'contacts': user_contacts
+    }
+    return render(request, 'accounts/dashboard.html', context)
