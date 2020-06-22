@@ -35,33 +35,33 @@ def search(request):
         keywords = request.GET['keywords']
         if keywords:
             queryset = queryset.filter(
-                description__icontains=keywords, is_published=True)
+                description__icontains=keywords)
 
     #City
     if 'city' in request.GET:
         city = request.GET['city']
         if city:
-            queryset = queryset.filter(city__iexact=city, is_published=True)
+            queryset = queryset.filter(city__iexact=city)
 
     #Province
     if 'province' in request.GET:
         province = request.GET['province']
         if province:
             queryset = queryset.filter(
-                province__iexact=province, is_published=True)
+                province__iexact=province)
 
     #Bedroom
     if 'bedrooms' in request.GET:
         bedrooms = request.GET['bedrooms']
         if bedrooms:
             queryset = queryset.filter(
-                bedrooms__lte=bedrooms, is_published=True)
+                bedrooms__lte=bedrooms)
 
     #Price
     if 'price' in request.GET:
         price = request.GET['price']
         if price:
-            queryset = queryset.filter(price__lte=price, is_published=True)
+            queryset = queryset.filter(price__lte=price)
 
 
     context = {
