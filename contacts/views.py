@@ -29,8 +29,8 @@ def contacts(request):
 
         # Send mail
         send_mail(
-            'Property Listing Iquiry',
-            'There has been an inquery for' + listing + '. Sign into the admin panel for more info',
+            'Property Listing Inquiry',
+            'There has been an inquiry for ' + listing + '. Sign into the admin panel for more info',
             'projectrealestatetest@gmail.com',
             ['hudson.mcmanus@gmail.com', realtor_email],
             fail_silently=False
